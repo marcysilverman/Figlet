@@ -6,11 +6,14 @@ export default class App extends PureComponent{
   state = {
     count: 0,
     text: '',
-    formatedText: ''
+    formatedText: '',
+    font: 'Ghost'
   }
-  
+  // textToImage = () => {
+  //   DomToImage.toPng(this.state.img)
+  // }
   formatText = () => {
-    const font = 'Ghost';
+    const { font } = this.state;
     figlet.text(this.state.text,
       { font },
       (err, formatedText) => {
@@ -34,10 +37,14 @@ export default class App extends PureComponent{
     });
   }
   render() {
-    const { text, formatedText } = this.state;
+    const { text, formatedText, font } = this.state;
+    const fontOptions = ['Weird', 'Chunky', 'Swan', 'Basic', 'LiL Devil'].map(font => {
+      return <option key={font} value={font}> {font} </option>;
+    });
     return (
       <Fragment> 
-        <form> 
+        <form > 
+          <select name="font" onChange={this.handleChange} value={font} > {fontOptions} </select>
           <input type="text" name="text" value={text} onChange={this.handleChange}/>
         </form>
         <div>
