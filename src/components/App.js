@@ -2,6 +2,8 @@ import React, { PureComponent, Fragment } from 'react';
 import figlet from 'figlet';
 import DomToImage from 'dom-to-image';
 import fileSaver from 'file-saver';
+import TextFormatter from './TextFormatter';
+import FormatDisplay from './FormatDisplay';
 
 
 
@@ -54,20 +56,20 @@ export default class App extends PureComponent{
   }
   render() {
     const { text, formatedText, font, img } = this.state;
-    const fontOptions = ['Ghost', 'Chunky', 'Swan', 'Basic', 'LiL Devil'].map(font => {
-      return <option key={font} value={font}> {font} </option>;
-    });
     return (
       <Fragment> 
-        <form onSubmit={this.textToImage}> 
-          <select name="font" onChange={this.handleChange} value={font} > {fontOptions} </select>
-          <input ref={this.imageInput} type="text" name="text" value={text} onChange={this.handleChange}/>
-          <button type="submit"> Create Image</button> 
-          <h1>{text} </h1>
-          <h1 ref={this.formattedTextRef}> <pre>{formatedText}</pre></h1>
-          {img && <img src={img} />}
-          {img && <button onClick={this.saveFile}> Save Image </button>}  
-        </form>
+        <TextFormatter 
+          text={text}
+          font={font}
+          handleChange={this.handleChange}
+          textToImage={this.textToImage}
+        />
+        <FormatDisplay
+          formattedText={formatedText}
+          formattedTextRef={this.formattedTextRef}
+        />
+        {img && <img src={img} />}
+        {img && <button onClick={this.saveFile}> Save Image </button>}  
       </Fragment>
     );
   }
