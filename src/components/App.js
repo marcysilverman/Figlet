@@ -54,7 +54,7 @@ export default class App extends PureComponent{
   }
   render() {
     const { text, formatedText, font, img } = this.state;
-    const fontOptions = ['Weird', 'Chunky', 'Swan', 'Basic', 'LiL Devil'].map(font => {
+    const fontOptions = ['Ghost', 'Chunky', 'Swan', 'Basic', 'LiL Devil'].map(font => {
       return <option key={font} value={font}> {font} </option>;
     });
     return (
@@ -63,12 +63,10 @@ export default class App extends PureComponent{
           <select name="font" onChange={this.handleChange} value={font} > {fontOptions} </select>
           <input ref={this.imageInput} type="text" name="text" value={text} onChange={this.handleChange}/>
           <button type="submit"> Create Image</button> 
-          <div>
-            <h1>{text} </h1>
-            <h1 ref={this.formattedTextRef}> <pre>{formatedText}</pre></h1>
-            {img && <img src={img} />}
-            <button onClick={this.saveFile}> Save Image </button>
-          </div>
+          <h1>{text} </h1>
+          <h1 ref={this.formattedTextRef}> <pre>{formatedText}</pre></h1>
+          {img && <img src={img} />}
+          {img && <button onClick={this.saveFile}> Save Image </button>}  
         </form>
       </Fragment>
     );
